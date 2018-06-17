@@ -13,7 +13,7 @@ import (
 // policies define the input s3 storare. the output s3 storage
 // and the associatate credentials, with also the rules and the operationn
 // to do
-type policies struct {
+type Policies struct {
 	// s3 intput storage
 	InEndpoint string `json:"in_endpoint"`
 	// prefix
@@ -68,7 +68,7 @@ func validateRuleType(rule string) (err error) {
 }
 
 // Checn values
-func validateJSONInput(p policies) (err error) {
+func validateJSONInput(p Policies) (err error) {
 	if err = validateEndpoint(p.InEndpoint); err != nil {
 		return
 	}
@@ -82,7 +82,7 @@ func validateJSONInput(p policies) (err error) {
 }
 
 // Loading policies from
-func LoadPolicieFromPath(path string) (p policies, err error) {
+func LoadPolicieFromPath(path string) (p Policies, err error) {
 	var data []byte
 	if data, err = ioutil.ReadFile(path); err != nil {
 		panic(err)
@@ -91,7 +91,7 @@ func LoadPolicieFromPath(path string) (p policies, err error) {
 	return
 }
 
-func LoadPolicieFromByte(data []byte) (p policies, err error) {
+func LoadPolicieFromByte(data []byte) (p Policies, err error) {
 	err = json.Unmarshal(data, &p)
 	return
 }
