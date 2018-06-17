@@ -1,4 +1,4 @@
-package main
+package policies
 
 import (
 	"encoding/json"
@@ -94,8 +94,4 @@ func LoadPolicieFromPath(path string) (p policies, err error) {
 func LoadPolicieFromByte(data []byte) (p policies, err error) {
 	err = json.Unmarshal(data, &p)
 	return
-}
-
-func main() {
-	LoadPolicieFromPath("./policies.json")
 }
