@@ -1,0 +1,19 @@
+{
+   "in_endpoint": "http://localhost:8080",
+   "in_path": "/",
+   "in_bucket": "test",
+   "in_key": "toto",
+    "in_secret": "toto2",
+    "out_endpoint": "http://",
+    "out_path": "/",
+    "out_key": "tata",
+    "out_secret": "tata2",
+
+    "rule_type": "",
+    "rule_compare_op": "",
+    "rule_value": "",
+
+    "parallelisation": false,
+    "operations": "test",
+    "custom_function_name": "test"
+}
