@@ -1,0 +1,2 @@
+- Config file for credentials. 
+- Use id inside gui instead of secret / access ==> Need kind of link
