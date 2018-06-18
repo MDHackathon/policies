@@ -5,6 +5,6 @@ import (
 )
 
 func GetS3Client(access string, secret string, endpoint string, ssl bool) (cli *minio.Client, err error) {
-	cli, err = minio.New(endpoint, access, secret, ssl)
+	cli, err = minio.NewV2(endpoint, access, secret, ssl)
 	return
 }
