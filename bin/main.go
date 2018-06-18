@@ -19,7 +19,8 @@ import (
 //
 // Rules:
 // 		- match(name) -> allow a reggex on the key
-//		- match(data) -> allow to operate an a set of object define by date
+//		- match(date) -> allow to operate an a set of object define by date
+//						 Format "2013-06-18T02:08:03+00:00"
 //
 // Operation:
 //		- Copy -> Copy an object from a s3 storage to an other ( actif <-> passif )
@@ -63,8 +64,11 @@ func main() {
 			if strings.Compare(p.RuleType, "match") == 0 {
 				if ret, err := policies.MatchName(obj.Key, p.RuleValue); err != nil {
 					fmt.Println("somethiong goes wrong check the policies parameters", err)
-				} else {
+				} else if ret {
+					fmt.Println("match : ", obj.Key)
 					op = true
+				} else {
+					fmt.Println("not match : ", obj.Key)
 				}
 			}
 			if strings.Compare(p.RuleType, "date") == 0 {
@@ -77,7 +81,7 @@ func main() {
 				}
 			}
 			if op == true {
-				if err = ExecuteOperation(p, S3IN, S3OUT); err != nil {
+				if err = policies.ExecuteOperation(p, S3IN, S3OUT, obj); err != nil {
 					fmt.Println("Failed to execute the op {}")
 					break
 				}

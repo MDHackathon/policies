@@ -1,7 +1,9 @@
 package policies
 
 import (
+	"fmt"
 	"github.com/minio/minio-go"
+	"strings"
 )
 
 // Copy will load the data from the s3 input storage to the s3 output storage using the bucket
@@ -16,6 +18,7 @@ func Copy(in *minio.Client, out *minio.Client, ib string, ob string, objInfo min
 	}
 	// TODO check how use the n(int) return value
 	if _, err = out.PutObject(ob, objInfo.Key, stream, objInfo.Size, minio.PutObjectOptions{}); err != nil {
+		fmt.Println("failed to put object")
 		return
 	}
 	return
@@ -32,6 +35,18 @@ func Move(in *minio.Client, out *minio.Client, ib string, ob string, objInfo min
 
 	if err = in.RemoveObject(ib, objInfo.Key); err != nil {
 		return
+	}
+	return
+}
+
+func ExecuteOperation(p Policies, in *minio.Client, out *minio.Client, obj minio.ObjectInfo) (err error) {
+	if strings.Compare(p.Operation, "move") == 0 {
+		fmt.Println("moving ... ")
+		err = Move(in, out, p.InBucket, p.OutBucket, obj)
+	} else if strings.Compare(p.Operation, "copy") == 0 {
+		fmt.Println("copying ... ")
+		err = Copy(in, out, p.InBucket, p.OutBucket, obj)
+		fmt.Println("copying ... ")
 	}
 	return
 }
