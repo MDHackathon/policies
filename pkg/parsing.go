@@ -81,7 +81,7 @@ func validateJSONInput(p Policies) (err error) {
 	return
 }
 
-// Loading policies from
+// Loading policies from a given path
 func LoadPolicieFromPath(path string) (p Policies, err error) {
 	var data []byte
 	if data, err = ioutil.ReadFile(path); err != nil {
@@ -91,6 +91,7 @@ func LoadPolicieFromPath(path string) (p Policies, err error) {
 	return
 }
 
+// Loading policies from a []byte
 func LoadPolicieFromByte(data []byte) (p Policies, err error) {
 	err = json.Unmarshal(data, &p)
 	return
