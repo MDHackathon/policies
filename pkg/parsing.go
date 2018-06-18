@@ -57,10 +57,10 @@ func validateEndpoint(endpoint string) (err error) {
 
 // Ensure that the rule type is implemented
 func validateRuleType(rule string) (err error) {
-	if strings.Compare(rule, "match") != 0 {
+	if strings.Compare(rule, "match") == 0 {
 		return
 	}
-	if strings.Compare(rule, "date") != 0 {
+	if strings.Compare(rule, "date") == 0 {
 		return
 	}
 	err = errors.New("Unknow rule: use match or date")
